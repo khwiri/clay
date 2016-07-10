@@ -1,0 +1,106 @@
+<html>
+    <head>
+        <title>Clay</title>
+        <link rel="stylesheet" href="./css/main.css">
+    </head>
+    <body>
+        <ul class="nav nav-tabs">
+            <li class="nav-item quick-connect">Quick Connect</li>
+            <li class="nav-item my-connections">My Connections</li>
+            <li class="nav-item templates">Templates</li>
+            <li class="nav-item settings">Settings</li>
+        </ul>
+        <div class="content"></div>
+        <div class="pages">
+            <div class="quick-connect-page">
+                <div class="control" style="width: 80%; float: left;">
+                    <label>Host<input class="host" type="text" placeholder="Host Name of IP Address"></label>
+                </div>
+                <div class="control" style="width: 19%; float: right;">
+                    <label>Port<input class="port" type="text" placeholder="Port (default 22)"></label>
+                </div>
+                <div style="clear: both;"></div>
+
+                <div style="width: 90%; float: left;">
+                    <div class="control">
+                        <label>Private Key<input class="" type="text" placeholder="Private key file for authentication"></label>
+                    </div>
+                </div>
+                <div style="float: right;">
+                    <button class="button success" style="margin-top: 20px;">Browse</button>
+                </div>
+                <div style="clear: both;"></div>
+
+                <div class="submit-row">
+                    <button class="button yawn connect">Save</button>
+                    <button class="button success connect">Connect</button>
+                </div>
+            </div>
+
+            <div class="my-connections-page">
+                <div class="submit-row">
+                    <button class="button success">Create</button>
+                </div>
+            </div>
+
+            <div class="templates-page">
+                <div class="submit-row">
+                    <button class="button success">Create</button>
+                </div>
+            </div>
+
+            <div class="settings-page">
+                <div style="width: 90%; float: left;">
+                    <div class="control">
+                        <label>Putty Path<input class="putty-path" type="text" placeholder=""></label>
+                    </div>
+                </div>
+                <div style="float: right;">
+                    <button class="button success putty-browse" style="margin-top: 20px;">Browse</button>
+                </div>
+                <div style="clear: both;"></div>
+
+                <div class="submit-row">
+                    <button class="button success save">Save</button>
+                </div>
+            </div>
+        </div>
+
+        <script src="./js/pages.js"></script>
+        <script>
+            var $ = require('jQuery');
+            const {ipcRenderer} = require('electron');
+
+            ipcRenderer.send('renderer-ready');
+            ipcRenderer.once('startup', function(event, settings) {
+                clay.pages.register($('.nav-item.quick-connect'), $('.pages .quick-connect-page'), settings.puttyPath ? true : false);
+                clay.pages.register($('.nav-item.my-connections'), $('.pages .my-connections-page'));
+                clay.pages.register($('.nav-item.templates'), $('.pages .templates-page'));
+                clay.pages.register($('.nav-item.settings'), $('.pages .settings-page'), !settings.puttyPath ? true : false);
+
+                if(settings.puttyPath)
+                    $('.putty-path').val(settings.puttyPath);
+            });
+
+            $('.save').click(function() {
+                ipcRenderer.send('save-settings', {
+                    puttyPath: $('.putty-path').val()
+                });
+            });
+
+            $('.putty-browse').click(function() {
+                ipcRenderer.send('putty-browse');
+                ipcRenderer.once('putty-path', function(event, data) {
+                    $('.putty-path').val(data.path);
+                });
+            });
+
+            $('.connect').click(function() {
+                ipcRenderer.send('connect', {
+                    host: $('.host').val(),
+                    port: $('.port').val()
+                });
+            });
+        </script>
+    </body>
+</html>

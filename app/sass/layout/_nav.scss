@@ -1,0 +1,47 @@
+$nav-tab-border-color: #555;
+
+.nav {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+
+    &.nav-tabs {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+        background-color: #111;
+
+        .nav-item {
+            display: table-cell;
+            text-align: center;
+            padding: 10px 0;
+            color: #888;
+            font-size: 24px;
+            border-bottom: 2px solid $nav-tab-border-color;
+            border-left: 1px solid $nav-tab-border-color;
+            border-right: 1px solid $nav-tab-border-color;
+
+            &.selected {
+                color: #fff;
+                background-color: $primary-background;
+                border-bottom: none;
+
+                &:hover {
+                    background-color: $primary-background;
+                }
+            }
+
+            &:first-child {
+                border-left: none;
+            }
+
+            &:last-child {
+                border-right: none;
+            }
+
+            &:hover {
+                background-color: #222;
+            }
+        }
+    }
+}
