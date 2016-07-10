@@ -23,11 +23,11 @@
 
                 <div style="width: 90%; float: left;">
                     <div class="control">
-                        <label>Private Key<input class="" type="text" placeholder="Private key file for authentication"></label>
+                        <label>Private Key<input class="private-key" type="text" placeholder="Private key file for authentication"></label>
                     </div>
                 </div>
                 <div style="float: right;">
-                    <button class="button success" style="margin-top: 20px;">Browse</button>
+                    <button class="button success private-key-browse" style="margin-top: 20px;">Browse</button>
                 </div>
                 <div style="clear: both;"></div>
 
@@ -96,9 +96,25 @@
             });
 
             $('.connect').click(function() {
-                ipcRenderer.send('connect', {
+                let params = {
                     host: $('.host').val(),
-                    port: $('.port').val()
+                };
+
+                let port = $('.port').val();
+                if(port)
+                    params.port = port;
+
+                let ppk = $('.private-key').val();
+                if(ppk)
+                    params.ppk = ppk;
+
+                ipcRenderer.send('connect', params);
+            });
+
+            $('.private-key-browse').click(function() {
+                ipcRenderer.send('private-key-browse');
+                ipcRenderer.once('private-key-path', function(event, data) {
+                    $('.private-key').val(data.path);
                 });
             });
         </script>
