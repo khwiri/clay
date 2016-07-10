@@ -70,9 +70,14 @@ ipcMain.on('connect', function(event, data) {
         if(puttyPath) {
             var overrides = new Buffer(JSON.stringify({background_color: "0,0,0"})).toString('base64');
             execFile(`${__dirname}/bin/porcelain-1.0/porcelain.exe`, [overrides], (error, stdout, stderr) => {
-                if(!error)
-                    execFile(puttyPath, ['-load', 'sia', data.host]);
-                else
+                if(!error) {
+                    data = Object.assign({port: '22'}, data);
+                    let params = ['-load', 'sia', data.host, '-P', data.port];
+                    if(data.ppk)
+                        params = params.concat(['-i', data.ppk]);
+                        
+                    execFile(puttyPath, params);
+                } else
                     dialog.showErrorBox('Clay', 'There was an error while starting putty.');
             });
         } else {
@@ -81,6 +86,12 @@ ipcMain.on('connect', function(event, data) {
     } else {
         dialog.showErrorBox('Clay', 'Unable to start a putty session because your application data could not be loaded.');
     }
+});
+
+ipcMain.on('private-key-browse', function(event, data) {
+    var path = dialog.showOpenDialog(win, {filters: [{name: 'PuTTY Private Key Files', extensions: ['ppk']}], properties: ['openFile']});
+    if(path)
+        event.sender.send('private-key-path', {path: path[0]});
 });
 
 ipcMain.on('putty-browse', function(event, data) {
