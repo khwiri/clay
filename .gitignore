@@ -38,6 +38,7 @@ jspm_packages
 
 # Python build directories
 src/porcelain/build
+src/porcelain/dist
 
 # Ignore Sass Output
 app/css/*.css
