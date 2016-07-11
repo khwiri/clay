@@ -13,23 +13,26 @@
         <div class="content"></div>
         <div class="pages">
             <div class="quick-connect-page">
-                <div class="control" style="width: 80%; float: left;">
-                    <label>Host<input class="host" type="text" placeholder="Host Name of IP Address"></label>
-                </div>
-                <div class="control" style="width: 19%; float: right;">
-                    <label>Port<input class="port" type="text" placeholder="Port (default 22)"></label>
-                </div>
-                <div style="clear: both;"></div>
-
-                <div style="width: 90%; float: left;">
+                <div class="inline-control-group col-2">
                     <div class="control">
-                        <label>Private Key<input class="private-key" type="text" placeholder="Private key file for authentication"></label>
+                        <label>Host</label>
+                        <input class="host" type="text" placeholder="Host Name of IP Address">
+                    </div>
+                    <div class="control">
+                        <label>Port</label>
+                        <input class="port" type="text" placeholder="Port (default 22)">
                     </div>
                 </div>
-                <div style="float: right;">
-                    <button class="button success private-key-browse" style="margin-top: 20px;">Browse</button>
+
+                <div class="inline-control-group col-2">
+                    <div class="control">
+                        <label>Private Key</label>
+                        <input class="private-key" type="text" placeholder="Private key file for authentication">
+                    </div>
+                    <div class="control">
+                        <button class="button success private-key-browse" style="margin-top: 20px;">Browse</button>
+                    </div>
                 </div>
-                <div style="clear: both;"></div>
 
                 <div class="submit-row">
                     <button class="button yawn connect">Save</button>
@@ -50,15 +53,15 @@
             </div>
 
             <div class="settings-page">
-                <div style="width: 90%; float: left;">
+                <div class="inline-control-group col-2">
                     <div class="control">
-                        <label>Putty Path<input class="putty-path" type="text" placeholder=""></label>
+                        <label>Putty Path</label>
+                        <input class="putty-path" type="text" placeholder="">
+                    </div>
+                    <div class="control">
+                        <button class="button success putty-browse" style="margin-top: 20px;">Browse</button>
                     </div>
                 </div>
-                <div style="float: right;">
-                    <button class="button success putty-browse" style="margin-top: 20px;">Browse</button>
-                </div>
-                <div style="clear: both;"></div>
 
                 <div class="submit-row">
                     <button class="button success save">Save</button>
