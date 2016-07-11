@@ -1,0 +1,76 @@
+
+.inline-control-group {
+    display: flex;
+
+    .control {
+        padding-right: 10px;
+
+        &:last-child {
+            padding-right: 0px;
+        }
+    }
+}
+
+.control {
+    margin-bottom: 20px;
+
+    &:focus {
+        outline: none;
+    }
+
+    /*
+    @at-root input {
+        @extend .control;
+        background-color: #ddd;
+    }
+    */
+
+    input {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #ccc;
+        background-color: #ddd;
+        font-size: 14px;
+        @include border-radius(4px);
+    }
+
+    label {
+        color: $primary-text;
+        font-size: 18px;
+        display: block;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    /*
+    &.inline-control {
+        display: inline-block;
+        width: auto;
+
+        input {
+
+        }
+    }
+    */
+}
+
+.submit-row {
+    text-align: right;
+    margin: 10px;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+
+    button {
+        margin-left: 10px;
+        min-width: 150px;
+        right: none;
+    }
+
+    &:last-child {
+        right: 0px;
+    }
+}
