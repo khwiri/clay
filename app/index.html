@@ -69,17 +69,18 @@
             </div>
         </div>
 
-        <script src="./js/pages.js"></script>
         <script>
             var $ = require('jQuery');
             const {ipcRenderer} = require('electron');
+            const pages = require('./js/pages');
+            
 
             ipcRenderer.send('renderer-ready');
             ipcRenderer.once('startup', function(event, settings) {
-                clay.pages.register($('.nav-item.quick-connect'), $('.pages .quick-connect-page'), settings.puttyPath ? true : false);
-                clay.pages.register($('.nav-item.my-connections'), $('.pages .my-connections-page'));
-                clay.pages.register($('.nav-item.templates'), $('.pages .templates-page'));
-                clay.pages.register($('.nav-item.settings'), $('.pages .settings-page'), !settings.puttyPath ? true : false);
+                pages.register($('.nav-item.quick-connect'), $('.pages .quick-connect-page'), settings.puttyPath ? true : false);
+                pages.register($('.nav-item.my-connections'), $('.pages .my-connections-page'));
+                pages.register($('.nav-item.templates'), $('.pages .templates-page'));
+                pages.register($('.nav-item.settings'), $('.pages .settings-page'), !settings.puttyPath ? true : false);
 
                 if(settings.puttyPath)
                     $('.putty-path').val(settings.puttyPath);
