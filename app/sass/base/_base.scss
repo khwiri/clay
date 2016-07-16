@@ -54,6 +54,16 @@ body {
             border-color: #76ac3d;
         }
     }
+
+    &.error {
+        background-color: #b10000;
+        border-color: #b10000;
+
+        &:hover {
+            background-color: #d03b3b;
+            border-color: #d03b3b;
+        }
+    }
 }
 
 /*
@@ -72,7 +82,6 @@ body {
 .button:hover {color: #fff;}
 .button.yawn {background-color: #fff; border-color: #ccc; color: #555;}
 .button.yawn:hover {background-color: #eee; border-color: #bbb;}
-*/
 .button.primary {background-color: #218cd0; border-color: #218cd0;}
 .button.primary:hover {background-color: #38a5ea; border-color: #38a5ea;}
 .button.success {background-color: #64a023; border-color: #64a023;}
@@ -83,3 +92,4 @@ body {
 .button.mirror:hover {background-color: #218cd0; border-color: #218cd0;}
 a.button {text-decoration: none;}
 a.button:hover {text-decoration: none;}
+*/

@@ -69,11 +69,35 @@
             </div>
         </div>
 
+        <div class="dialogs">
+            <div class="dialog">
+                <div class="content">
+                    <div class="header">
+                        <i class="fa fa-times close"></i>
+                        <h4 class="title"></h4>
+                    </div>
+                    <div class="body"></div>
+                    <div class="footer"></div>
+                </div>
+            </div>
+
+            <div class="meh">
+                <div class="title">This is my title</div>
+                <div class="content">
+                    <button class="button success">Save</button>
+                </div>
+                <div class="footer">
+                    <button class="button error foobar">Ok</button>
+                </div>
+            </div>
+        </div>
+
         <script>
             var $ = require('jQuery');
             const {ipcRenderer} = require('electron');
             const pages = require('./js/pages');
-            
+            const Dialog = require('./js/dialog');
+
 
             ipcRenderer.send('renderer-ready');
             ipcRenderer.once('startup', function(event, settings) {
@@ -100,6 +124,15 @@
             });
 
             $('.connect').click(function() {
+                /*
+                let dialog = new Dialog();
+                dialog.show($('.meh').clone(), {
+                    close: () => {
+                        console.log('on close');
+                    }
+                });
+                */
+
                 let params = {
                     host: $('.host').val(),
                 };
