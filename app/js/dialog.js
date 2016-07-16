@@ -7,7 +7,7 @@ class Dialog {
             show: true,
             animation_speed: 150,
             starting_top: 10,
-            final_top: 40
+            final_top: 20
         }, options ? options : {});
     }
 
