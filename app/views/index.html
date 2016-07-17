@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>Clay</title>
-        <link rel="stylesheet" href="./css/main.css">
+        <link rel="stylesheet" href="../css/main.css">
     </head>
     <body>
         <ul class="nav nav-tabs"></ul>
@@ -21,22 +21,20 @@
         </div>
 
         <script>
-            var $ = require('jQuery');
             const {ipcRenderer} = require('electron');
-            const pages = require('./js/pages');
-            const Dialog = require('./js/dialog');
+            const pages = require('../js/pages');
 
             ipcRenderer.send('renderer-ready');
             ipcRenderer.once('startup', function(event, settings) {
-                pages.register('Quick Connect', './app/views/quick-connect.html', true);
+                pages.register('Quick Connect', './app/views/quick-connect.html', settings.puttyPath ? true : false);
                 pages.register('My Connections', './app/views/my-connections.html');
                 pages.register('Templates', './app/views/templates.html');
-                pages.register('Settings', './app/views/settings.html');
+                pages.register('Settings', './app/views/settings.html', !settings.puttyPath ? true : false);
 
-                require("./js/controllers/quick-connect.js")(settings);
-                require('./js/controllers/templates.js')(settings);
-                require('./js/controllers/my-connections.js')(settings);
-                require('./js/controllers/settings.js')(settings);
+                require("../js/controllers/quick-connect.js")(settings);
+                require('../js/controllers/templates.js')(settings);
+                require('../js/controllers/my-connections.js')(settings);
+                require('../js/controllers/settings.js')(settings);
             });
         </script>
     </body>
