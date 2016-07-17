@@ -1,8 +1,17 @@
 
-@import 'base/base';
-@import 'layout/nav';
-//@import 'layout/header';
-//@import 'layout/footer';
-@import 'component/form';
-@import 'component/dialog';
-@import 'pages/index';
+// queen bee
+@import
+    'base/base';
+
+// layout styles
+@import
+    'layout/nav';
+
+// specific components
+@import
+    'component/form',
+    'component/dialog';
+
+// page-specific styles
+@import
+    'pages/index';

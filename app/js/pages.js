@@ -1,19 +1,31 @@
+const fs = require('fs');
 const $ = require('jQuery');
 
 function showPage(page, tab) {
-    $('body > .content').children(':first').appendTo($('.pages'));
-    $(page).appendTo($('body > .content'));
+    $('body > .content').children(':first').detach().appendTo($('.pages'));
+    $(page).detach().appendTo($('body > .content'));
     $('.nav-item').removeClass('selected');
     $(tab).addClass('selected');
 }
 
-module.exports = {
-    register: (tab, page, show) => {
-        tab.click(function() {
-            showPage(page, this);
-        });
+function register(title, page, show) {
+    let tab = $('<li />', {text: title, class: 'nav-item'});
+    $('.nav.nav-tabs').append(tab);
 
-        if(show)
-            showPage(page, tab);
+    let html = fs.readFileSync(page, 'utf-8');
+    let parsedHtml = $('<div />', {class: 'page'}).html(html);
+    $('.pages').append(parsedHtml);
+
+    $(tab).click(() => {
+        showPage(parsedHtml, tab);
+    });
+
+    if(show)
+        showPage(parsedHtml, tab);
+}
+
+module.exports = {
+    register: (title, page, show) => {
+        register(title, page, show);
     }
 };
