@@ -11,6 +11,11 @@ $primary-text: #fff;
     border-radius: $radius;
 }
 
+@mixin border-bottom-radius($radius) {
+    border-bottom-left-radius: $radius;
+    border-bottom-right-radius: $radius;
+}
+
 body {
     background-color: $primary-background;
     margin: 0px;

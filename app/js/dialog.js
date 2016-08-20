@@ -20,13 +20,20 @@ class Dialog {
             $('.footer', this.dialog).append($('.footer', dialogContent).children());
             $(this.dialog).click((event) => {event.stopPropagation();});
             $('.glass').append(this.dialog.addClass('active').fadeIn(this.options.animation_speed).animate({top: this.options.final_top}, this.options.animation_speed).dequeue());
-            let close = () => {
-                if(this.options.close ? this.options.close($(this).data('intent')) : true)
+            let cancel = () => {
+                if(options.cancel ? options.cancel(this.dialog, $(this).data('intent')) : true)
                     this.hide();
             }
-            $('.footer > button', this.dialog).click(close);
-            $('.header .close', this.dialog).click(close);
-            $(glass).click(close);
+
+            let success = () => {
+                if(options.success ? options.success(this.dialog) : true)
+                    this.hide();
+            }
+
+            $('.footer .dialog-success').click(success);
+            $('.footer .dialog-cancel').click(cancel);
+            $('.header .close', this.dialog).click(cancel);
+            $(glass).click(cancel);
         }});
     }
 
