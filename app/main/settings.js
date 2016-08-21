@@ -7,13 +7,15 @@ module.exports = {
     getPath: () => {
         return process.env.APPDATA + '/clay/settings.json';
     },
-    
+
     create: (settingsPath) => {
         settings.save({
-            puttyPath: ''
+            puttyPath: '',
+            templates: [],
+            connections: []
         });
     },
-    
+
     get: () => {
         let settingsPath = module.exports.getPath();
         if(!utils.pathExists(path.dirname(settingsPath)))
@@ -22,7 +24,7 @@ module.exports = {
             settings.create(settingsPath);
         return JSON.parse(fs.readFileSync(settingsPath));
     },
-            
+
     save: (data) => {
         let settingsPath = module.exports.getPath();
         if(utils.pathExists(path.dirname(settingsPath))) {

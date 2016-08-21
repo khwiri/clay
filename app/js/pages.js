@@ -1,45 +1,31 @@
-require('jQuery');
-
-/*
-var clay = (function(clay, $) {
-    let _pages = {
-        show: function(page, tab) {
-            $('.content').children(':first').appendTo($('.pages'));
-            $(page).appendTo($('.content'));
-            $('.nav-item').removeClass('selected');
-            $(tab).addClass('selected');
-        }
-    };
-
-    let pages = {
-        register: function(tab, page, show) {
-            tab.click(function() {
-                _pages.show(page, this);
-            });
-            
-            if(show)
-                _pages.show(page, tab);
-            },
-        };
-        
-    return $.extend(clay, {pages: pages});
-}(window.clay = window.clay || {}, require('jQuery')));
-*/
+const fs = require('fs');
+const $ = require('jQuery');
 
 function showPage(page, tab) {
-    $('.content').children(':first').appendTo($('.pages'));
-    $(page).appendTo($('.content'));
+    $('body > .content').children(':first').detach().appendTo($('.pages'));
+    $(page).detach().appendTo($('body > .content'));
     $('.nav-item').removeClass('selected');
     $(tab).addClass('selected');
 }
 
+function register(title, page, show) {
+    let tab = $('<li />', {text: title, class: 'nav-item'});
+    $('.nav.nav-tabs').append(tab);
+
+    let html = fs.readFileSync(page, 'utf-8');
+    let parsedHtml = $('<div />', {class: 'page'}).html(html);
+    $('.pages').append(parsedHtml);
+
+    $(tab).click(() => {
+        showPage(parsedHtml, tab);
+    });
+
+    if(show)
+        showPage(parsedHtml, tab);
+}
+
 module.exports = {
-    register: (tab, page, show) => {
-        tab.click(function() {
-            showPage(page, this);
-        });
-        
-        if(show)
-            showPage(page, tab);
+    register: (title, page, show) => {
+        register(title, page, show);
     }
 };

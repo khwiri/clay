@@ -5,14 +5,14 @@ let win;
 function createWindow() {
     win = new BrowserWindow({width: 800, height: 600});
     //win.setMenu(null);
-    win.loadURL(`file://${__dirname}/index.html`);
+    win.loadURL(`file://${__dirname}/../views/index.html`);
     //win.webContents.openDevTools();
 
     win.on('closed', () => {
         win = null;
     });
-    
-    require('./main/routing')(win);
+
+    require('./routing')(win);
 }
 
 app.on('ready', createWindow);

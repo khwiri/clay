@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <title>Clay</title>
+        <link rel="stylesheet" href="../css/main.css">
+    </head>
+    <body>
+        <ul class="nav nav-tabs"></ul>
+        <div class="content"></div>
+        <div class="pages"></div>
+        <div class="dialogs">
+            <div class="dialog">
+                <div class="content">
+                    <div class="header">
+                        <i class="fa fa-times close"></i>
+                        <h4 class="title"></h4>
+                    </div>
+                    <div class="body"></div>
+                    <div class="footer"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fresh-template">
+            <div class="template">
+                <div class="name"></div>
+                <div class="background"></div>
+            </div>
+        </div>
+
+        <script>
+            const {ipcRenderer} = require('electron');
+            const pages = require('../js/pages');
+
+            ipcRenderer.send('renderer-ready');
+            ipcRenderer.once('startup', function(event, settings) {
+                pages.register('Quick Connect', './app/views/quick-connect.html'); //, settings.puttyPath ? true : false);
+                pages.register('My Connections', './app/views/my-connections.html');
+                pages.register('Templates', './app/views/templates.html', true);
+                pages.register('Settings', './app/views/settings.html'); //, !settings.puttyPath ? true : false);
+
+                require("../js/controllers/quick-connect.js")(settings);
+                require('../js/controllers/templates.js')(settings);
+                require('../js/controllers/my-connections.js')(settings);
+                require('../js/controllers/settings.js')(settings);
+            });
+        </script>
+    </body>
+</html>

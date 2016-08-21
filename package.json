@@ -2,7 +2,7 @@
   "name": "clay",
   "version": "1.0.0",
   "description": "",
-  "main": "app/index.js",
+  "main": "app/main/index.js",
   "scripts": {
     "start": "electron ."
   },
