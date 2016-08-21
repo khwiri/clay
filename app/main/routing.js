@@ -11,6 +11,7 @@ module.exports = (win) => {
     // quick connect
     ipcMain.on('connect', quickConnect.connect);
     ipcMain.on('private-key-browse', (event, data) => {quickConnect.privateKeyBrowse(win, event, data);});
+    ipcMain.on('save-connection', quickConnect.saveConnection);
 
     // my connections
 

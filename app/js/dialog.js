@@ -19,7 +19,10 @@ class Dialog {
             $('.body', this.dialog).append($('.content', dialogContent).children());
             $('.footer', this.dialog).append($('.footer', dialogContent).children());
             $(this.dialog).click((event) => {event.stopPropagation();});
-            $('.glass').append(this.dialog.addClass('active').fadeIn(this.options.animation_speed).animate({top: this.options.final_top}, this.options.animation_speed).dequeue());
+            $('.glass').append(this.dialog.addClass('active').fadeIn({
+                duration: this.options.animation_speed,
+                complete: options.visible ? options.visible(this.dialog) : null
+            }).animate({top: this.options.final_top}, this.options.animation_speed).dequeue());
             let cancel = () => {
                 if(options.cancel ? options.cancel(this.dialog, $(this).data('intent')) : true)
                     this.hide();

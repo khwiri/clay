@@ -1,11 +1,11 @@
 const {ipcRenderer} = require('electron');
 var $ = require('jQuery');
 
-module.exports = (settings) => {    
+module.exports = (settings) => {
     if(settings.puttyPath)
         $('.putty-path').val(settings.puttyPath);
 
-    $('.save').click(function() {
+    $('.settings-page .save').click(function() {
         ipcRenderer.send('save-settings', {
             puttyPath: $('.putty-path').val()
         });

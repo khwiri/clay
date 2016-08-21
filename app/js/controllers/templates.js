@@ -6,7 +6,7 @@ function renderTemplate(templateDefinition) {
     let template = $('.fresh-template .template').clone();
     $('.name', template).text(templateDefinition.name);
     $('.background', template).text(templateDefinition.background).css('background-color', templateDefinition.background);
-    $('.templates').append(template);
+    $('.templates-page .templates').append(template);
 
     $(template).click(() => {
         showTemplateDialog(templateDefinition);
@@ -25,12 +25,14 @@ function showTemplateDialog(template) {
     let dialogContent = $('.create-template-dialog').clone();
 
     if(template) {
+        $('.template-id', dialogContent).val(template.id);
         $('.template-name', dialogContent).val(template.name);
         $('.template-background', dialogContent).val(template.background);
     }
 
     dialog.show(dialogContent, {
         success: (dialog) => {
+            let id = $('.template-id', dialog).val();
             let name = $('.template-name', dialog).val();
             let background = $('.template-background', dialog).val();
 
@@ -39,7 +41,7 @@ function showTemplateDialog(template) {
                 return false;
             }
 
-            ipcRenderer.send('save-template', {name: name, backgroundColor: background});
+            ipcRenderer.send('save-template', {id: id, name: name, backgroundColor: background});
             ipcRenderer.once('saved-templates', function(event, templates) {
                 renderTemplates(templates);
             });

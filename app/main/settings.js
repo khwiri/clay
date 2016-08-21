@@ -11,7 +11,8 @@ module.exports = {
     create: (settingsPath) => {
         settings.save({
             puttyPath: '',
-            templates: []
+            templates: [],
+            connections: []
         });
     },
 

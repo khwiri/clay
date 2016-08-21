@@ -21,8 +21,25 @@
     </div>
 
     <div class="submit-row">
-        <button class="button yawn connect">Save</button>
+        <button class="button yawn save">Save</button>
         <button class="button success connect">Connect</button>
     </div>
 
+    <div class="dialogs">
+        <div class="save-connection">
+            <div class="title">Save Connection</div>
+            <div class="content">
+                <input class="host" type="hidden"/>
+                <div class="control">
+                    <label>Name</label>
+                    <input class="connection-name" type="text" placeholder="Connection Name">
+                </div>
+                <div class="templates"></div>
+            </div>
+            <div class="footer">
+                <button class="button yawn dialog-cancel">Cancel</button>
+                <button class="button success dialog-success">Save</button>
+            </div>
+        </div>
+    </div>
 </div>

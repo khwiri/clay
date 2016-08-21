@@ -5,7 +5,7 @@ function save(event, data) {
     if(settingsData) {
         let append = true;
         settingsData.templates.forEach((template, i) => {
-            if(data.name == template.name) {
+            if(data.id == template.id) {
                 settingsData.templates[i].name = data.name;
                 settingsData.templates[i].background = data.backgroundColor;
                 append = false;
@@ -14,6 +14,7 @@ function save(event, data) {
 
         if(append) {
             settingsData.templates.push({
+                id: (new Date).getTime(),
                 name: data.name,
                 background: data.backgroundColor
             });
@@ -25,9 +26,6 @@ function save(event, data) {
 }
 
 module.exports = {
-    //edit
-
-    //create
     save: (event, data) => {
         save(event, data);
     }
