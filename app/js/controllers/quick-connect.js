@@ -24,7 +24,6 @@ module.exports = (settings) => {
         dialog.show($('.save-connection').clone(), {
             visible: (dialog) => {
                 $('.host', dialog).val($('.quick-connect-page .host').val());
-
                 $(settings.templates).each((index, templateDefinition) => {
                     let template = $('.fresh-template .template').clone();
                     $(template).data('id', templateDefinition.id);
@@ -50,8 +49,9 @@ module.exports = (settings) => {
                 */
 
                 ipcRenderer.send('save-connection', {name: name, host: host, template: template});
-                ipcRenderer.once('saved-connection', (event, connection) => {
+                ipcRenderer.once('saved-connection', (event, connections) => {
                     alert('Connection Saved!');
+                    $(document).trigger('on-connection-saved', {connections: connections});
                 });
 
                 return true;
