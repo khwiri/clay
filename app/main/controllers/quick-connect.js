@@ -31,7 +31,7 @@ function saveConnection(event, data) {
         data.id = (new Date).getTime();
         settingsData.connections.push(data);
         settings.save(settingsData);
-        event.sender.send('saved-connection', settingsData.connections);
+        event.sender.send('saved-connection', settingsData);
     } else
         dialog.showErrorBox('Clay', 'Unable to save connection because your application data could not be loaded.');
 }

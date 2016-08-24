@@ -1,0 +1,16 @@
+
+.fresh-connection {
+    display: none;
+}
+
+.connections {
+    .connection {
+        @include border-radius(4px);
+        border: 1px solid $template-border-color;
+        color: #000;
+
+        &.dark {
+            color: $primary-text;
+        }
+    }
+}
