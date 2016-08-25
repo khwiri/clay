@@ -4,10 +4,28 @@
 }
 
 .connections {
+    display: flex;
+    flex-wrap: wrap;
+
     .connection {
-        @include border-radius(4px);
-        border: 1px solid $template-border-color;
         color: #000;
+        @include border-radius(4px);
+        padding: 4px;
+        margin: 4px;
+        min-width: 150px;
+
+        .name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .details {
+            list-style: none;
+            margin: 10px 0 0 0;
+            padding: 0px;
+            font-size: 12px;
+
+        }
 
         &.dark {
             color: $primary-text;

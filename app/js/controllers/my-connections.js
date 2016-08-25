@@ -16,10 +16,22 @@ function getTemplate(templates, id) {
 
 function renderConnection(connection, template) {
     let connectionTemplate = $('.fresh-connection .connection').clone();
+    let port = connection.port;
+    let host = connection.host + (port && port != '22' ? ':' + port : '');
+
     $(connectionTemplate).css('background-color', template.background);
     $('.name', connectionTemplate).text(connection.name);
-    if(Color(template.background).dark())
+    $('.host', connectionTemplate).text(host);
+
+    let background = Color(template.background);
+    let lightBackground = background.lighten(0.15).hexString();
+    if(background.dark())
         $(connectionTemplate).addClass('dark');
+    $(connectionTemplate).hover(() => {
+        $(connectionTemplate).css('background-color', lightBackground);
+    }, () => {
+        $(connectionTemplate).css('background-color', template.background);
+    });
     $('.my-connections-page .connections').append(connectionTemplate);
 }
 

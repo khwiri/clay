@@ -24,6 +24,7 @@ module.exports = (settings) => {
         dialog.show($('.save-connection').clone(), {
             visible: (dialog) => {
                 $('.host', dialog).val($('.quick-connect-page .host').val());
+                $('.port', dialog).val($('.quick-connect-page .port').val());
                 $(settings.templates).each((index, templateDefinition) => {
                     let template = $('.fresh-template .template').clone();
                     $(template).data('id', templateDefinition.id);
@@ -41,6 +42,7 @@ module.exports = (settings) => {
                 let name = $('.connection-name', dialog).val();
                 let template = $('.templates .template.selected', dialog).data('id');
                 let host = $('.host', dialog).val();
+                let port = $('.port', dialog).val();
 
                 /*
                 console.log(name);
@@ -48,7 +50,7 @@ module.exports = (settings) => {
                 console.log(host);
                 */
 
-                ipcRenderer.send('save-connection', {name: name, host: host, template: template});
+                ipcRenderer.send('save-connection', {name: name, host: host, template: template, port: port});
                 ipcRenderer.once('saved-connection', (event, settings) => {
                     alert('Connection Saved!');
                     $(document).trigger('on-connection-saved', settings);
