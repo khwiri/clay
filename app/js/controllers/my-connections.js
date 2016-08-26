@@ -32,6 +32,17 @@ function renderConnection(connection, template) {
     }, () => {
         $(connectionTemplate).css('background-color', template.background);
     });
+
+    let edit = $('.edit', connectionTemplate);
+    edit.click(() => {
+        $(document).trigger('quick-connect', connection);
+    });
+    edit.hover((event) => {
+        $(event.target).addClass('fa-spin');
+    }, (event) => {
+        $(event.target).removeClass('fa-spin');
+    });
+
     $('.my-connections-page .connections').append(connectionTemplate);
 }
 

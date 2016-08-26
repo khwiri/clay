@@ -14,9 +14,17 @@
         margin: 4px;
         min-width: 150px;
 
-        .name {
-            font-size: 18px;
-            font-weight: bold;
+        .title {
+            .name {
+                font-size: 18px;
+                font-weight: bold;
+                margin-right: 20px;
+            }
+
+            .edit {
+                float: right;
+                font-size: 20px;
+            }
         }
 
         .details {

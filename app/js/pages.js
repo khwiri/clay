@@ -16,6 +16,11 @@ function register(title, page, show) {
     let parsedHtml = $('<div />', {class: 'page'}).html(html);
     $('.pages').append(parsedHtml);
 
+    $(document).on(title.toLowerCase().replace(/ /g, '-'), (event, data) => {
+        showPage(parsedHtml, tab);
+        console.log($(parsedHtml).first());
+        $(parsedHtml).children(':first').trigger('on-load', data);
+    });
     $(tab).click(() => {
         showPage(parsedHtml, tab);
     });

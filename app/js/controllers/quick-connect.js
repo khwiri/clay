@@ -3,6 +3,10 @@ const $ = require('jQuery');
 const Dialog = require('../dialog');
 
 module.exports = (settings) => {
+    $('.quick-connect-page').on('on-load', (event, data) => {
+        console.log(data);
+    });
+
     $('.connect').click(() => {
         let params = {
             host: $('.quick-connect-page .host').val(),
