@@ -33,14 +33,35 @@ function renderConnection(connection, template) {
         $(connectionTemplate).css('background-color', template.background);
     });
 
+    let tip = $('.tip', connectionTemplate);
     let edit = $('.edit', connectionTemplate);
-    edit.click(() => {
+    $(edit).click(() => {
         $(document).trigger('quick-connect', connection);
     });
-    edit.hover((event) => {
+    $(edit).hover((event) => {
         $(event.target).addClass('fa-spin');
+        $(tip).text('edit').stop(true, true).fadeIn(250);
     }, (event) => {
         $(event.target).removeClass('fa-spin');
+        $(tip).stop(true, true).fadeOut(100, () => {
+            $(tip).text('');
+        });
+    });
+
+    let clone = $('.clone', connectionTemplate);
+    $(clone).click(() => {
+        delete connection.id;
+        ipcRenderer.send('save-connection', connection);
+        ipcRenderer.once('saved-connection', (event, settings) => {
+            $(document).trigger('on-connection-saved', settings);
+        });
+    });
+    $(clone).hover((event) => {
+        $(tip).text('clone').stop(true, true).fadeIn(250);
+    }, (event) => {
+        $(tip).stop(true, true).fadeOut(100, () => {
+            $(tip).text('');
+        });
     });
 
     $('.my-connections-page .connections').append(connectionTemplate);

@@ -19,7 +19,7 @@ function register(title, page, show) {
     $(document).on(title.toLowerCase().replace(/ /g, '-'), (event, data) => {
         showPage(parsedHtml, tab);
         console.log($(parsedHtml).first());
-        $(parsedHtml).children(':first').trigger('on-load', data);
+        $(parsedHtml).children(':first').trigger('clayOnPageLoad', data);
     });
     $(tab).click(() => {
         showPage(parsedHtml, tab);

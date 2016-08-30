@@ -18,12 +18,17 @@
             .name {
                 font-size: 18px;
                 font-weight: bold;
-                margin-right: 20px;
+                margin-right: 120px;
             }
 
-            .edit {
+            .tools {
                 float: right;
                 font-size: 20px;
+
+                .tip {
+                    display: none;
+                    font-size: 14px;
+                }
             }
         }
 
