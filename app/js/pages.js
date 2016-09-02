@@ -32,10 +32,5 @@ function register(title, page, show) {
 module.exports = {
     register: (title, page, show) => {
         register(title, page, show);
-    },
-
-    showActionBar: (page, action) => {
-        $('.action-bar', page).find(action).css('display', 'block');
-        $('.action-bar', page).addClass('show');
     }
 };

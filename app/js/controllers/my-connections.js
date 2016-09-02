@@ -82,23 +82,9 @@ module.exports = (settings) => {
 
     $('.my-connections-page .delete').click(() => {
         actionBar.showBar('.my-connections-page', '.confirm');
-        //$('.my-connections-page .action-bar .confirm').css('display', 'block');
-        //$('.my-connections-page .action-bar').addClass('show');
-    });
-
-    $('.my-connections-page .more').click(() => {
-        $('.my-connections-page .action-bar .more2').css('display', 'block');
-        $('.my-connections-page .action-bar').addClass('show');
     });
 
     $('.my-connections-page .confirm').click(() => {
         actionBar.hideBar('.my-connections-page');
-        //$('.my-connections-page .action-bar .confirm').css('display', 'none');
-        //$('.my-connections-page .action-bar').removeClass('show');
-    });
-
-    $('.my-connections-page .action-bar .more2').click(() => {
-        $('.my-connections-page .action-bar .more2').css('display', 'none');
-        $('.my-connections-page .action-bar').removeClass('show');
     });
 };
