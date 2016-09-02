@@ -5,7 +5,9 @@
 
 // layout styles
 @import
-    'layout/nav';
+    'layout/nav',
+    'layout/page',
+    'layout/footer';
 
 // specific components
 @import
@@ -21,4 +23,5 @@
 // page-specific styles
 @import
     'pages/index',
-    'pages/quick_connect';
+    'pages/quick_connect',
+    'pages/my_connections';

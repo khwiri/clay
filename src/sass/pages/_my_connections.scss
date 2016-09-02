@@ -1,0 +1,20 @@
+$message-color: #eee;
+
+.action-bar {
+    button {
+        min-width: 150px;
+    }
+
+    .confirm {
+        .action-bar-content {
+            display: flex;
+
+            .message {
+                color: $message-color;
+                flex: 1;
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+}

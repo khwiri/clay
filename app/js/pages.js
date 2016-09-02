@@ -13,7 +13,7 @@ function register(title, page, show) {
     $('.nav.nav-tabs').append(tab);
 
     let html = fs.readFileSync(page, 'utf-8');
-    let parsedHtml = $('<div />', {class: 'page'}).html(html);
+    let parsedHtml = $('<div />').html(html).children(':first').addClass('page');
     $('.pages').append(parsedHtml);
 
     $(document).on(title.toLowerCase().replace(/ /g, '-'), (event, data) => {
@@ -32,5 +32,10 @@ function register(title, page, show) {
 module.exports = {
     register: (title, page, show) => {
         register(title, page, show);
+    },
+
+    showActionBar: (page, action) => {
+        $('.action-bar', page).find(action).css('display', 'block');
+        $('.action-bar', page).addClass('show');
     }
 };

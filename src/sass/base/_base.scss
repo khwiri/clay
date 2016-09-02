@@ -16,9 +16,16 @@ $primary-text: #fff;
     border-bottom-right-radius: $radius;
 }
 
+html, body {
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+}
+
 body {
     background-color: $primary-background;
-    margin: 0px;
+    display: flex;
+    flex-direction: column;
 }
 
 .button {

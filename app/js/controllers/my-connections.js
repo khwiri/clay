@@ -1,6 +1,8 @@
 const {ipcRenderer} = require('electron');
 var Color = require('color');
 var $ = require('jQuery');
+const pages = require('../pages');
+const actionBar = require('../actionbar');
 
 function getTemplate(templates, id) {
     let found = {background: '#000'};
@@ -77,4 +79,26 @@ function renderConnections(settings) {
 module.exports = (settings) => {
     $(document).on('on-connection-saved', (event, settings) => { renderConnections(settings); });
     renderConnections(settings);
+
+    $('.my-connections-page .delete').click(() => {
+        actionBar.showBar('.my-connections-page', '.confirm');
+        //$('.my-connections-page .action-bar .confirm').css('display', 'block');
+        //$('.my-connections-page .action-bar').addClass('show');
+    });
+
+    $('.my-connections-page .more').click(() => {
+        $('.my-connections-page .action-bar .more2').css('display', 'block');
+        $('.my-connections-page .action-bar').addClass('show');
+    });
+
+    $('.my-connections-page .confirm').click(() => {
+        actionBar.hideBar('.my-connections-page');
+        //$('.my-connections-page .action-bar .confirm').css('display', 'none');
+        //$('.my-connections-page .action-bar').removeClass('show');
+    });
+
+    $('.my-connections-page .action-bar .more2').click(() => {
+        $('.my-connections-page .action-bar .more2').css('display', 'none');
+        $('.my-connections-page .action-bar').removeClass('show');
+    });
 };
