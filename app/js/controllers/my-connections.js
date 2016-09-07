@@ -42,12 +42,10 @@ function renderConnection(connection, template) {
     });
     $(edit).hover((event) => {
         $(event.target).addClass('fa-spin');
-        $(tip).text('edit').stop(true, true).fadeIn(250);
+        $(tip).text('edit');
     }, (event) => {
         $(event.target).removeClass('fa-spin');
-        $(tip).stop(true, true).fadeOut(100, () => {
-            $(tip).text('');
-        });
+        $(tip).text('');
     });
 
     let clone = $('.clone', connectionTemplate);
@@ -59,11 +57,9 @@ function renderConnection(connection, template) {
         });
     });
     $(clone).hover((event) => {
-        $(tip).text('clone').stop(true, true).fadeIn(250);
+        $(tip).text('clone');
     }, (event) => {
-        $(tip).stop(true, true).fadeOut(100, () => {
-            $(tip).text('');
-        });
+        $(tip).text('');
     });
 
     $('.my-connections-page .connections').append(connectionTemplate);
