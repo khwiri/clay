@@ -43,5 +43,19 @@
         &.dark {
             color: $primary-text;
         }
+
+        &.delete {
+            color: $primary-text;
+            background-color: #222;
+            border: 1px solid #fff;
+
+            &.marked {
+                background-color: #ff0000;
+            }
+
+            &:hover {
+                background-color: #ff0000;
+            }
+        }
     }
 }
