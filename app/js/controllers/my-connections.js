@@ -113,14 +113,18 @@ function deleteConnections() {
 }
 
 module.exports = (settings) => {
+    let currentSettings = settings;
     page = $('.my-connections-page');
-
-    $(document).on('on-connection-saved', (event, settings) => { renderConnections(settings); });
     renderConnections(settings);
+
+    $(document).on('on-connection-saved', (event, settings) => {
+        currentSettings = settings;
+        renderConnections(settings);
+    });
 
     $('.delete', page).click(() => {
         actionBar.showBar(page, '.confirm');
-        renderConnections(settings, 'delete');
+        renderConnections(currentSettings, 'delete');
     });
 
     $('.actions .confirm', page).click(() => {
@@ -130,6 +134,6 @@ module.exports = (settings) => {
 
     $('.actions .cancel', page).click(() => {
         actionBar.hideBar(page);
-        renderConnections(settings);
+        renderConnections(currentSettings);
     });
 };
