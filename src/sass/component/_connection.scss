@@ -7,7 +7,7 @@
     flex-wrap: wrap;
 
     .connection {
-        color: #000;
+        color: $text-color-inverse;
         @include border-radius(4px);
         padding: 4px;
         margin: 4px;
@@ -15,11 +15,15 @@
 
         @at-root .connections.delete .connection {
             color: $text-color;
-            background-color: #222;
-            border: 1px solid #fff;
+            background-color: $connection-delete-background;
+            border: 1px solid $connection-delete-border-color;
 
             &:hover {
-                background-color: #ff0000;
+                background-color: $connection-delete-marked;
+            }
+
+            &.marked {
+                background-color: $connection-delete-marked;
             }
         }
 
@@ -50,10 +54,6 @@
 
         &.dark {
             color: $text-color;
-        }
-
-        &.marked {
-            background-color: #ff0000;
         }
     }
 }
