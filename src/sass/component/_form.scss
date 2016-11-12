@@ -28,14 +28,14 @@
     input {
         width: 100%;
         padding: 10px 12px;
-        border: 1px solid #ccc;
-        background-color: #ddd;
+        border: 1px solid $form-input-border-color;
+        background-color: $form-input-background;
         font-size: 14px;
         @include border-radius(4px);
     }
 
     label {
-        color: $primary-text;
+        color: $text-color;
         font-size: 18px;
         display: block;
     }

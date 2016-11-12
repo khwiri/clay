@@ -1,0 +1,47 @@
+// typography
+$font-family: Helvetica, sans-serif !default;
+
+// branding
+// $brand-primary:
+$brand-success: #64a023 !default;
+// $brand-info:
+// $brand-warning:
+$brand-error: #b10000 !default;
+
+// globals
+$body-background: #333 !default;
+$text-color: #fff !default;
+
+// nav
+$nav-text-color: #888 !default;
+$nav-background: #111 !default;
+$nav-background-hover: lighten($nav-background, 5%) !default;
+$nav-border-color: #555 !default;
+$nav-selected-background: $body-background !default;
+
+// buttons
+$button-text-color: #fff !default;
+
+$button-yawn-text-color: #555 !default;
+$button-yawn-background: #fff !default;
+$button-yawn-background-hover: #eee !default;
+$button-yawn-border-color: #eee !default;
+$button-yawn-border-color-hover: #bbb !default;
+
+$button-success-background: $brand-success !default;
+$button-success-background-hover: lighten($button-success-background, 2%) !default;
+
+$button-error-background: $brand-error !default;
+$button-error-background-hover: lighten($button-error-background, 2%) !default;
+
+// forms
+$form-input-border-color: #ccc !default;
+$form-input-background: #ddd !default;
+
+// action bar
+$actionbar-background: #222 !default;
+$actionbar-border-color: #555 !default;
+
+// templates page
+$template-border-color: #555 !default;
+$template-border-color-hover: #999 !default;

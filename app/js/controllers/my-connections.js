@@ -4,6 +4,8 @@ var $ = require('jQuery');
 const pages = require('../pages');
 const actionBar = require('../actionbar');
 
+let page;
+
 function getTemplate(templates, id) {
     let found = {background: '#000'};
     $(templates).each((index, template) => {
@@ -62,7 +64,7 @@ function bindConnection(connection, connectionTemplate, template) {
 }
 
 function bindDeleteConnection(connectionTemplate) {
-    $(connectionTemplate).addClass('delete');
+    // $(connectionTemplate).addClass('delete');
 
     $(connectionTemplate).click(() => {
         $(connectionTemplate).toggleClass('marked');
@@ -85,11 +87,14 @@ function renderConnection(connection, template, action) {
     else
         bindConnection(connection, connectionTemplate, template);
 
-    $('.my-connections-page .connections').append(connectionTemplate);
+    $('.connections', page).append(connectionTemplate);
 }
 
 function renderConnections(settings, action='normal') {
-    $('.my-connections-page .connections').empty();
+    $('.connections', page).removeClass('delete').empty();
+    if(action == 'delete')
+        $('.connections', page).addClass('delete');
+
     $(settings.connections).each((index, connection) => {
         renderConnection(connection, getTemplate(settings.templates, connection.template), action);
     });
@@ -97,7 +102,7 @@ function renderConnections(settings, action='normal') {
 
 function deleteConnections() {
     let connections = [];
-    $('.my-connections-page .connections .connection.delete.marked').each((i, connection) => {
+    $('.connections .connection.marked', page).each((i, connection) => {
         connections.push($(connection).data('id'));
     });
 
@@ -108,21 +113,23 @@ function deleteConnections() {
 }
 
 module.exports = (settings) => {
+    page = $('.my-connections-page');
+
     $(document).on('on-connection-saved', (event, settings) => { renderConnections(settings); });
     renderConnections(settings);
 
-    $('.my-connections-page .delete').click(() => {
-        actionBar.showBar('.my-connections-page', '.confirm');
+    $('.delete', page).click(() => {
+        actionBar.showBar(page, '.confirm');
         renderConnections(settings, 'delete');
     });
 
-    $('.my-connections-page .actions .confirm').click(() => {
-        actionBar.hideBar('.my-connections-page');
+    $('.actions .confirm', page).click(() => {
+        actionBar.hideBar(page);
         deleteConnections();
     });
 
-    $('.my-connections-page .actions .cancel').click(() => {
-        actionBar.hideBar('.my-connections-page');
+    $('.actions .cancel', page).click(() => {
+        actionBar.hideBar(page);
         renderConnections(settings);
     });
 };

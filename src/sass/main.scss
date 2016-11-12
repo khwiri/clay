@@ -1,7 +1,12 @@
+// abstracts
+@import
+    'abstracts/variables',
+    'abstracts/mixins';
 
 // queen bee
 @import
-    'base/base';
+    'base/base',
+    'base/generics';
 
 // layout styles
 @import
