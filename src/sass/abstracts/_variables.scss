@@ -11,6 +11,7 @@ $brand-error: #b10000 !default;
 // globals
 $body-background: #333 !default;
 $text-color: #fff !default;
+$text-color-inverse: #000 !default;
 
 // nav
 $nav-text-color: #888 !default;
@@ -37,6 +38,12 @@ $button-error-background-hover: lighten($button-error-background, 2%) !default;
 // forms
 $form-input-border-color: #ccc !default;
 $form-input-background: #ddd !default;
+
+// dialog
+$dialog-background: #111 !default;
+$dialog-border-color: #555 !default;
+$dialog-close-color: #aaa !default;
+$dialog-close-color-hover: #fff !default;
 
 // action bar
 $actionbar-background: #222 !default;

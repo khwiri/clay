@@ -22,9 +22,9 @@
         display: none;
 
         .content {
-            color: #000;
-            background-color: #111;
-            border: 1px solid #555;
+            color: $text-color-inverse;
+            background-color: $dialog-background;
+            border: 1px solid $dialog-border-color;
             box-shadow: 0 5px 10px rgba(0,0,0,0.2);
             @include border-radius(4px);
 
@@ -35,7 +35,7 @@
             .header {
                 padding: 8px;
                 min-height: 20px;
-                border-bottom: 1px solid #555;
+                border-bottom: 1px solid $dialog-border-color;
 
                 .title {
                     color: $text-color;
@@ -47,11 +47,11 @@
                 .close {
                     float: right;
                     padding: 4px;
-                    color: #aaa;
+                    color: $dialog-close-color;
                     transition: color 0.15s ease;
 
                     &:hover {
-                        color: #fff;
+                        color: $dialog-close-color-hover;
                         cursor: pointer;
                     }
                 }
@@ -59,7 +59,7 @@
 
             .footer {
                 padding: 8px;
-                border-top: 1px solid #555;
+                border-top: 1px solid $dialog-border-color;
                 text-align: right;
 
                 .button {
