@@ -13,9 +13,14 @@ function register(title, page, show) {
     $('.nav.nav-tabs').append(tab);
 
     let html = fs.readFileSync(page, 'utf-8');
-    let parsedHtml = $('<div />', {class: 'page'}).html(html);
+    let parsedHtml = $('<div />').html(html).children(':first').addClass('page');
     $('.pages').append(parsedHtml);
 
+    $(document).on(title.toLowerCase().replace(/ /g, '-'), (event, data) => {
+        showPage(parsedHtml, tab);
+        console.log($(parsedHtml).first());
+        $(parsedHtml).children(':first').trigger('clayOnPageLoad', data);
+    });
     $(tab).click(() => {
         showPage(parsedHtml, tab);
     });

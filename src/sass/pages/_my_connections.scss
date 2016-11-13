@@ -1,0 +1,17 @@
+.action-bar {
+    button {
+        min-width: 150px;
+    }
+
+    .confirm {
+        .action-bar-content {
+            display: flex;
+
+            .message {
+                flex: 1;
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+}

@@ -1,0 +1,13 @@
+@mixin user-select($select) {
+    user-select: $select;
+    -webkit-user-select: $select;
+}
+
+@mixin border-radius($radius) {
+    border-radius: $radius;
+}
+
+@mixin border-bottom-radius($radius) {
+    border-bottom-left-radius: $radius;
+    border-bottom-right-radius: $radius;
+}

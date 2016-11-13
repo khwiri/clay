@@ -1,6 +1,9 @@
 const $ = require('jQuery');
 const {ipcRenderer} = require('electron');
 const Dialog = require('../dialog');
+const actionBar = require('../actionbar');
+
+let page;
 
 function renderTemplate(templateDefinition) {
     let template = $('.fresh-template .template').clone();
@@ -52,9 +55,24 @@ function showTemplateDialog(template) {
 }
 
 module.exports = (settings) => {
+    page = $('.templates-page');
+
+    $(document).on('on-connection-saved', (event, settings) => { renderTemplates(settings.templates); });
     renderTemplates(settings.templates);
 
-    $('.create-template').click(() => {
+    $('.create', page).click(() => {
         showTemplateDialog();
+    });
+
+    $('.delete', page).click(() => {
+        actionBar.showBar(page, '.confirm');
+    });
+
+    $('.actions .confirm', page).click(() => {
+        actionBar.hideBar(page);
+    });
+
+    $('.actions .cancel', page).click(() => {
+        actionBar.hideBar(page);
     });
 };

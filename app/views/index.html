@@ -34,8 +34,8 @@
             ipcRenderer.send('renderer-ready');
             ipcRenderer.once('startup', function(event, settings) {
                 pages.register('Quick Connect', './app/views/quick-connect.html'); //, settings.puttyPath ? true : false);
-                pages.register('My Connections', './app/views/my-connections.html');
-                pages.register('Templates', './app/views/templates.html', true);
+                pages.register('My Connections', './app/views/my-connections.html', true);
+                pages.register('Templates', './app/views/templates.html');
                 pages.register('Settings', './app/views/settings.html'); //, !settings.puttyPath ? true : false);
 
                 require("../js/controllers/quick-connect.js")(settings);

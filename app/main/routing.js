@@ -1,5 +1,6 @@
 const {ipcMain} = require('electron');
 const quickConnect = require('./controllers/quick-connect');
+const myConnections = require('./controllers/my-connections');
 const templates = require('./controllers/templates');
 const settings = require('./controllers/settings');
 const clay = require('./controllers/clay');
@@ -14,6 +15,7 @@ module.exports = (win) => {
     ipcMain.on('save-connection', quickConnect.saveConnection);
 
     // my connections
+    ipcMain.on('delete-connections', myConnections.deleteConnections);
 
     // templates
     ipcMain.on('save-template', templates.save);

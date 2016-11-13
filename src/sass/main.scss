@@ -1,17 +1,25 @@
+// abstracts
+@import
+    'abstracts/variables',
+    'abstracts/mixins';
 
 // queen bee
 @import
-    'base/base';
+    'base/base',
+    'base/generics';
 
 // layout styles
 @import
-    'layout/nav';
+    'layout/nav',
+    'layout/page',
+    'layout/footer';
 
 // specific components
 @import
     'component/form',
     'component/dialog',
-    'component/template';
+    'component/template',
+    'component/connection';
 
 // 3rd-party styles
 @import
@@ -20,4 +28,5 @@
 // page-specific styles
 @import
     'pages/index',
-    'pages/quick_connect';
+    'pages/quick_connect',
+    'pages/my_connections';

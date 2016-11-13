@@ -28,10 +28,22 @@ function connect(event, data) {
 function saveConnection(event, data) {
     let settingsData = settings.get();
     if(settingsData) {
-        data.id = (new Date).getTime();
-        settingsData.connections.push(data);
+        if(data.id) {
+            settingsData.connections.forEach((connection, i) => {
+                if(connection.id == data.id) {
+                    connection.name = data.name;
+                    connection.host = data.host;
+                    connection.port = data.port;
+                    connection.template = data.template;
+                }
+            });
+        } else {
+            data.id = (new Date).getTime();
+            settingsData.connections.push(data);
+        }
+
         settings.save(settingsData);
-        event.sender.send('saved-connection');
+        event.sender.send('saved-connection', settingsData);
     } else
         dialog.showErrorBox('Clay', 'Unable to save connection because your application data could not be loaded.');
 }
