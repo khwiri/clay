@@ -19,6 +19,20 @@
         min-width: 100px;
         min-height: 100px;
 
+        @at-root .templates.delete .template {
+            color: $text-color;
+            background-color: $connection-delete-background;
+            border: 1px solid $connection-delete-border-color;
+
+            &:hover {
+                background-color: $connection-delete-marked;
+            }
+
+            &.marked {
+                background-color: $connection-delete-marked;
+            }
+        }
+
         .name {
             padding: 2px 4px;
         }

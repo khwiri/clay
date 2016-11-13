@@ -64,8 +64,6 @@ function bindConnection(connection, connectionTemplate, template) {
 }
 
 function bindDeleteConnection(connectionTemplate) {
-    // $(connectionTemplate).addClass('delete');
-
     $(connectionTemplate).click(() => {
         $(connectionTemplate).toggleClass('marked');
     });
@@ -74,7 +72,7 @@ function bindDeleteConnection(connectionTemplate) {
 }
 
 function renderConnection(connection, template, action) {
-    let connectionTemplate = $('.fresh-connection .connection').clone();
+    let connectionTemplate = $('.fresh-connection .connection', page).clone();
     let port = connection.port;
     let host = connection.host + (port && port != '22' ? ':' + port : '');
 
