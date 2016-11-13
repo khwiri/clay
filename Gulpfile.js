@@ -28,4 +28,5 @@ gulp.task('default', () => {
     gulp.watch('src/sass/**/*.scss', ['styles']);
     gulp.watch('src/porcelain/*.py', ['deploy-porcelain']);
     gulp.start('styles');
+    gulp.start('deploy-porcelain');
 });

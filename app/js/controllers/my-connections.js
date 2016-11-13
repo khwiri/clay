@@ -20,7 +20,7 @@ function getTemplate(templates, id) {
 
 function bindConnection(connection, connectionTemplate, template) {
     $(connectionTemplate).click(() => {
-        console.log('launch');
+        ipcRenderer.send('connect', connection);
     });
 
     $(connectionTemplate).css('background-color', template.background);
