@@ -8,7 +8,7 @@ function connect(event, data) {
         let puttyPath = settingsData.puttyPath;
         if(puttyPath) {
             var overrides = new Buffer(JSON.stringify({background_color: "0,255,0"})).toString('base64');
-            execFile('./app/bin/porcelain-1.0/porcelain.exe', [overrides], (error, stdout, stderr) => {
+            execFile('./app/bin/porcelain/porcelain.exe', [overrides], (error, stdout, stderr) => {
                 if(!error) {
                     data = Object.assign({port: '22'}, data);
                     let params = ['-load', 'sia', data.host, '-P', data.port];
