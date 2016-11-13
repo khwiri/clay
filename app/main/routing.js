@@ -19,7 +19,8 @@ module.exports = (win) => {
 
     // templates
     ipcMain.on('save-template', templates.save);
-
+    ipcMain.on('delete-templates', templates.deleteTemplates);
+    
     // settings
     ipcMain.on('putty-browse', (event, data) => {settings.puttyBrowse(win, event, data);});
     ipcMain.on('save-settings', settings.save);
