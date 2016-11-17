@@ -58,6 +58,28 @@
 
 .submit-row {
     text-align: right;
+    flex: 1;
+
+    &.status {
+        display: flex;
+
+        & > div {
+            display: flex;
+
+            &:first-child {
+                flex: 1;
+                flex-grow: 1;
+                display: flex;
+                align-items: center;
+                margin-left: 10px;
+                color: $footer-bar-status;
+            }
+        }
+
+        &:first-child {
+            text-align: left;
+        }
+    }
 
     button {
         margin-left: 4px;

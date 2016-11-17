@@ -37,19 +37,21 @@ function bindConnection(connection, connectionTemplate, template) {
 
     let tip = $('.tip', connectionTemplate);
     let edit = $('.edit', connectionTemplate);
-    $(edit).click(() => {
+    $(edit).click((event) => {
+        event.stopPropagation();
         $(document).trigger('quick-connect', connection);
     });
     $(edit).hover((event) => {
         $(event.target).addClass('fa-spin');
-        $(tip).text('edit');
+        $('.footer .status', page).children(':first').text('Edit connection');
     }, (event) => {
         $(event.target).removeClass('fa-spin');
-        $(tip).text('');
+        $('.footer .status', page).children(':first').text('');
     });
 
     let clone = $('.clone', connectionTemplate);
     $(clone).click(() => {
+        event.stopPropagation();
         delete connection.id;
         ipcRenderer.send('save-connection', connection);
         ipcRenderer.once('saved-connection', (event, settings) => {
@@ -57,9 +59,9 @@ function bindConnection(connection, connectionTemplate, template) {
         });
     });
     $(clone).hover((event) => {
-        $(tip).text('clone');
+        $('.footer .status', page).children(':first').text('Clone connection');
     }, (event) => {
-        $(tip).text('');
+        $('.footer .status', page).children(':first').text('');
     });
 }
 
