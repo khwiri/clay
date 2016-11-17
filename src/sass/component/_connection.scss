@@ -7,15 +7,16 @@
     flex-wrap: wrap;
 
     .connection {
+        flex: 1;
         color: $text-color-inverse;
-        @include border-radius(4px);
+        cursor: pointer;
         padding: 4px;
         margin: 4px;
-        min-width: 150px;
+        @include user-select(none);
+        @include border-radius(4px);
 
         @at-root .connections.delete .connection {
             color: $text-color;
-            background-color: $connection-delete-background;
             border: 1px solid $connection-delete-border-color;
 
             &:hover {
@@ -23,7 +24,11 @@
             }
 
             &.marked {
-                background-color: $connection-delete-marked;
+                background-color: $connection-delete-marked !important;
+            }
+
+            &.marking {
+                background-color: $connection-delete-marked !important;
             }
         }
 
@@ -31,7 +36,8 @@
             .name {
                 font-size: 18px;
                 font-weight: bold;
-                margin-right: 120px;
+                margin-right: 40px;
+                min-width: 120px;
             }
 
             .tools {

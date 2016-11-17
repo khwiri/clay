@@ -1,6 +1,6 @@
 const {ipcRenderer} = require('electron');
-var Color = require('color');
-var $ = require('jQuery');
+const Color = require('color');
+const $ = require('jQuery');
 const pages = require('../pages');
 const actionBar = require('../actionbar');
 
@@ -26,7 +26,7 @@ function bindConnection(connection, connectionTemplate, template) {
     $(connectionTemplate).css('background-color', template.background);
 
     let background = Color(template.background);
-    let lightBackground = background.lighten(0.15).hexString();
+    let lightBackground = background.lighten(0.25).hexString();
     if(background.dark())
         $(connectionTemplate).addClass('dark');
     $(connectionTemplate).hover(() => {
@@ -37,19 +37,21 @@ function bindConnection(connection, connectionTemplate, template) {
 
     let tip = $('.tip', connectionTemplate);
     let edit = $('.edit', connectionTemplate);
-    $(edit).click(() => {
+    $(edit).click((event) => {
+        event.stopPropagation();
         $(document).trigger('quick-connect', connection);
     });
     $(edit).hover((event) => {
         $(event.target).addClass('fa-spin');
-        $(tip).text('edit');
+        $('.footer .status', page).children(':first').text('Edit connection');
     }, (event) => {
         $(event.target).removeClass('fa-spin');
-        $(tip).text('');
+        $('.footer .status', page).children(':first').text('');
     });
 
     let clone = $('.clone', connectionTemplate);
     $(clone).click(() => {
+        event.stopPropagation();
         delete connection.id;
         ipcRenderer.send('save-connection', connection);
         ipcRenderer.once('saved-connection', (event, settings) => {
@@ -57,16 +59,28 @@ function bindConnection(connection, connectionTemplate, template) {
         });
     });
     $(clone).hover((event) => {
-        $(tip).text('clone');
+        $('.footer .status', page).children(':first').text('Clone connection');
     }, (event) => {
-        $(tip).text('');
+        $('.footer .status', page).children(':first').text('');
     });
 }
 
-function bindDeleteConnection(connectionTemplate) {
+function bindDeleteConnection(connection, connectionTemplate, template) {
     $(connectionTemplate).click(() => {
         $(connectionTemplate).toggleClass('marked');
     });
+
+    let darkBackground = (Color(template.background)).darken(0.50);
+    if(darkBackground.dark())
+        $(connectionTemplate).addClass('dark');
+
+    $(connectionTemplate).hover(() => {
+        $(connectionTemplate).addClass('marking');
+    }, () => {
+        $(connectionTemplate).removeClass('marking');
+    });
+
+    $(connectionTemplate).css('background-color', darkBackground.hexString());
 
     $('.tools', connectionTemplate).hide();
 }
@@ -81,7 +95,7 @@ function renderConnection(connection, template, action) {
     $('.host', connectionTemplate).text(host);
 
     if(action == 'delete')
-        bindDeleteConnection(connectionTemplate);
+        bindDeleteConnection(connection, connectionTemplate, template);
     else
         bindConnection(connection, connectionTemplate, template);
 

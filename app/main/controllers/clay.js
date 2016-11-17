@@ -11,7 +11,7 @@ function ready(win, event, data) {
         dialog.showMessageBox(win, {
                 type: 'warning',
                 title: 'Clay',
-                message: "Uhh, it doesn't look like you've set your putty path.  Please take a moment so that we know what we're doing.",
+                message: "Uhh, we have no idea where to find putty.  If you could take a moment to set your putty path, that'd be great.",
                 buttons: []
             },
             function() {

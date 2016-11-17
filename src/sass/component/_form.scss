@@ -57,15 +57,33 @@
 }
 
 .submit-row {
+    flex: 1;
     text-align: right;
+
+    &.status {
+        display: flex;
+
+        & > div {
+            display: flex;
+
+            &:first-child {
+                flex: 1;
+                flex-grow: 1;
+                display: flex;
+                align-items: center;
+                margin-left: 10px;
+                color: $footer-bar-status;
+                text-align: left;
+            }
+        }
+    }
 
     button {
         margin-left: 4px;
         min-width: 150px;
-        right: none;
-    }
 
-    &:last-child {
-        right: 0px;
+        &:last-child {
+            margin-right: 4px;
+        }
     }
 }

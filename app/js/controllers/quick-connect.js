@@ -3,6 +3,12 @@ const $ = require('jQuery');
 const Dialog = require('../dialog');
 
 module.exports = (settings) => {
+    let currentSettings = settings;
+
+    $(document).on('on-connection-saved', (event, settings) => {
+        currentSettings = settings;
+    });
+
     $('.quick-connect-page').on('clayOnPageLoad', (event, data) => {
         let port = data.port;
         $('.quick-connect-page .id').val(data.id);
@@ -25,10 +31,14 @@ module.exports = (settings) => {
         if(ppk)
             params.ppk = ppk;
 
-        ipcRenderer.send('connect', params);
+        if(params.host)
+            ipcRenderer.send('connect', params);
     });
 
     $('.quick-connect-page .save').click(() => {
+        if(!$('.quick-connect-page .host').val())
+            return;
+
         let dialog = new Dialog();
         dialog.show($('.save-connection').clone(), {
             visible: (dialog) => {
@@ -38,11 +48,11 @@ module.exports = (settings) => {
                 $('.port', dialog).val($('.quick-connect-page .port').val());
 
                 let currentTemplate = $('.quick-connect-page .template').val();
-                $(settings.templates).each((index, templateDefinition) => {
+                $(currentSettings.templates).each((index, templateDefinition) => {
                     let template = $('.fresh-template .template').clone();
                     $(template).data('id', templateDefinition.id);
-                    $('.name', template).text(templateDefinition.name);
-                    $('.background', template).text(templateDefinition.background).css('background-color', templateDefinition.background);
+                    $(template).text(templateDefinition.name);
+                    $(template).css('background-color', templateDefinition.background);
                     $('.templates', dialog).append(template);
 
                     if(currentTemplate == templateDefinition.id)
@@ -60,11 +70,15 @@ module.exports = (settings) => {
                 let host = $('.host', dialog).val();
                 let port = $('.port', dialog).val();
                 let template = $('.templates .template.selected', dialog).data('id');
-                let newConnection = {id: id, name: name, host: host, template: template, port: port};
 
+                // only save when a template and name have been provided
+                if(!name || !template)
+                    return false;
+
+                let newConnection = {id: id, name: name, host: host, template: template, port: port};
                 ipcRenderer.send('save-connection', newConnection);
                 ipcRenderer.once('saved-connection', (event, settings) => {
-                    alert('Connection Saved!');
+                    // alert('Connection Saved!');
                     $(document).trigger('on-connection-saved', settings);
                     $(document).trigger('my-connections');
                 });

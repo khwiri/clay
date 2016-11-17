@@ -20,6 +20,9 @@ $nav-background-hover: lighten($nav-background, 5%) !default;
 $nav-border-color: #555 !default;
 $nav-selected-background: $body-background !default;
 
+// footer
+$footer-bar-status: #f1e456 !default;
+
 // buttons
 $button-text-color: #fff !default;
 
@@ -49,11 +52,13 @@ $dialog-close-color-hover: #fff !default;
 $actionbar-background: #222 !default;
 $actionbar-border-color: #555 !default;
 
+// quick connect page
+$quick-connect-save-selected: lighten($brand-success, 5%) !important;
+
 // templates page
-$template-border-color: #555 !default;
-$template-border-color-hover: #999 !default;
+$template-delete-marked: $brand-error !default;
+$template-delete-border-color: #aaa !default;
 
 // connections page
-$connection-delete-marked: $brand-error !default;
-$connection-delete-background: #222 !default;
-$connection-delete-border-color: #fff !default;
+$connection-delete-marked: $template-delete-marked;
+$connection-delete-border-color: $template-delete-border-color;

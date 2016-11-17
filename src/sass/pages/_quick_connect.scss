@@ -2,7 +2,7 @@
     .templates {
         .template {
             &.selected {
-                background-color: #ff00ff;
+                background-color: $quick-connect-save-selected;
             }
         }
     }

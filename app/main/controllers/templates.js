@@ -20,6 +20,16 @@ function save(event, data) {
             });
         }
 
+        settingsData.templates.sort((a, b) => {
+            let aName = a.name.toLowerCase();
+            let bName = b.name.toLowerCase();
+            if(aName < bName)
+                return -1;
+            else if(aName > bName)
+                return 1;
+            return 0;
+        });
+
         settings.save(settingsData);
         event.sender.send('saved-templates', settingsData);
     }

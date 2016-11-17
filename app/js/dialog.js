@@ -33,9 +33,15 @@ class Dialog {
                     this.hide();
             }
 
-            $('.footer .dialog-success').click(success);
-            $('.footer .dialog-cancel').click(cancel);
+            $('.footer .dialog-success', this.dialog).click(success);
+            $('.footer .dialog-cancel', this.dialog).click(cancel);
             $('.header .close', this.dialog).click(cancel);
+
+            $(this.dialog).keydown((event) => {
+                if(event.keyCode == 13)
+                    success();
+            });
+
             $(glass).click(cancel);
         }});
     }
