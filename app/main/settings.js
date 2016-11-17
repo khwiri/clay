@@ -2,6 +2,7 @@ const {execFile} = require('child_process');
 const path = require('path');
 const fs = require('fs');
 const utils = require('./utils');
+// const settings = require('./settings');
 
 module.exports = {
     getPath: () => {
@@ -9,10 +10,14 @@ module.exports = {
     },
 
     create: (settingsPath) => {
-        settings.save({
+        module.exports.save({
             puttyPath: '',
-            templates: [],
-            connections: []
+            connections: [],
+            templates: [
+                {id: 1, name: 'Dev', background: '#222'},
+                {id: 2, name: 'Prod', background: '#b10000'},
+                {id: 3, name: 'QA', background: '#31bc34'},
+            ]
         });
     },
 
@@ -21,7 +26,7 @@ module.exports = {
         if(!utils.pathExists(path.dirname(settingsPath)))
             fs.mkdirSync(path.dirname(settingsPath));
         if(!utils.fileExists(settingsPath))
-            settings.create(settingsPath);
+            module.exports.create(settingsPath);
         return JSON.parse(fs.readFileSync(settingsPath));
     },
 

@@ -1,6 +1,6 @@
 @mixin user-select($select) {
-    user-select: $select;
     -webkit-user-select: $select;
+    user-select: $select;
 }
 
 @mixin border-radius($radius) {

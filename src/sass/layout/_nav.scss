@@ -19,6 +19,7 @@
             border-bottom: 2px solid $nav-border-color;
             border-left: 1px solid $nav-border-color;
             border-right: 1px solid $nav-border-color;
+            @include user-select(none);
 
             &.selected {
                 cursor: default;

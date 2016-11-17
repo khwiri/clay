@@ -1,4 +1,5 @@
 const $ = require('jQuery');
+const Color = require('color');
 const {ipcRenderer} = require('electron');
 const Dialog = require('../dialog');
 const actionBar = require('../actionbar');
@@ -6,26 +7,49 @@ const actionBar = require('../actionbar');
 let page;
 
 function bindTemplate(template, templateTemplate) {
-    $('.background', templateTemplate).text(template.background).css('background-color', template.background);
+    $(templateTemplate).css('background-color', template.background);
+
+    let background = Color(template.background);
+    let lightBackground = background.lighten(0.25).hexString();
+    if(background.dark())
+        $(templateTemplate).addClass('dark');
+    $(templateTemplate).hover(() => {
+        $(templateTemplate).css('background-color', lightBackground);
+    }, () => {
+        $(templateTemplate).css('background-color', template.background);
+    });
 
     $(templateTemplate).click(() => {
         showTemplateDialog(template);
     });
 }
 
-function bindDeleteTemplate(templateTemplate) {
+function bindDeleteTemplate(template, templateTemplate) {
     $(templateTemplate).click(() => {
         $(templateTemplate).toggleClass('marked');
     });
+
+    let darkBackground = (Color(template.background)).darken(0.50);
+    if(darkBackground.dark())
+        $(templateTemplate).addClass('dark');
+
+    $(templateTemplate).hover(() => {
+        $(templateTemplate).addClass('marking');
+    }, () => {
+        $(templateTemplate).removeClass('marking');
+    });
+
+    $(templateTemplate).css('background-color', darkBackground.hexString());
+
 }
 
 function renderTemplate(template, action) {
-    let templateTemplate = $('.fresh-template .template', page).clone(); // really...templateTemplate???
+    let templateTemplate = $('.fresh-template .template').clone(); // really...templateTemplate???
     $(templateTemplate).data('id', template.id);
-    $('.name', templateTemplate).text(template.name);
+    $(templateTemplate).text(template.name);
 
     if(action == 'delete')
-        bindDeleteTemplate(templateTemplate);
+        bindDeleteTemplate(template, templateTemplate);
     else
         bindTemplate(template, templateTemplate);
 
@@ -70,8 +94,8 @@ function showTemplateDialog(template) {
             let name = $('.template-name', dialog).val();
             let background = $('.template-background', dialog).val();
 
+            // only save when a name and background have been provided
             if(!name || !background) {
-                alert('Invalid template data');
                 return false;
             }
 

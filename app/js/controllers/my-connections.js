@@ -1,6 +1,6 @@
 const {ipcRenderer} = require('electron');
-var Color = require('color');
-var $ = require('jQuery');
+const Color = require('color');
+const $ = require('jQuery');
 const pages = require('../pages');
 const actionBar = require('../actionbar');
 
@@ -26,7 +26,7 @@ function bindConnection(connection, connectionTemplate, template) {
     $(connectionTemplate).css('background-color', template.background);
 
     let background = Color(template.background);
-    let lightBackground = background.lighten(0.15).hexString();
+    let lightBackground = background.lighten(0.25).hexString();
     if(background.dark())
         $(connectionTemplate).addClass('dark');
     $(connectionTemplate).hover(() => {
@@ -65,10 +65,22 @@ function bindConnection(connection, connectionTemplate, template) {
     });
 }
 
-function bindDeleteConnection(connectionTemplate) {
+function bindDeleteConnection(connection, connectionTemplate, template) {
     $(connectionTemplate).click(() => {
         $(connectionTemplate).toggleClass('marked');
     });
+
+    let darkBackground = (Color(template.background)).darken(0.50);
+    if(darkBackground.dark())
+        $(connectionTemplate).addClass('dark');
+
+    $(connectionTemplate).hover(() => {
+        $(connectionTemplate).addClass('marking');
+    }, () => {
+        $(connectionTemplate).removeClass('marking');
+    });
+
+    $(connectionTemplate).css('background-color', darkBackground.hexString());
 
     $('.tools', connectionTemplate).hide();
 }
@@ -83,7 +95,7 @@ function renderConnection(connection, template, action) {
     $('.host', connectionTemplate).text(host);
 
     if(action == 'delete')
-        bindDeleteConnection(connectionTemplate);
+        bindDeleteConnection(connection, connectionTemplate, template);
     else
         bindConnection(connection, connectionTemplate, template);
 

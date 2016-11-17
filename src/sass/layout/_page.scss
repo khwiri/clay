@@ -9,6 +9,7 @@
     }
 
     .footer {
+        display: flex;
         position: relative;
         height: 50px;
         overflow: hidden;
@@ -26,6 +27,17 @@
             right: 0px;
             left: 0px;
             transition: top 150ms ease-out;
+
+            .action-bar-content {
+                display: flex;
+
+                .message {
+                    flex: 1;
+                    display: flex;
+                    align-items: center;
+                    margin-left: 10px;
+                }
+            }
 
             &.show {
                 top: 0px;
