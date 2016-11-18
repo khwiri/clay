@@ -4,11 +4,18 @@
   "description": "",
   "main": "app/main/index.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build-win32": "electron-packager . --version 1.2.3 --platform win32 --icon ./app/img/app.ico --out ./dist --overwrite"
   },
   "author": "Adam Keys",
   "license": "ISC",
+  "dependencies": {
+      "electron": "^1.2.3",
+      "color": "^0.11.3",
+      "jQuery": "^1.7.4"
+  },
   "devDependencies": {
+    "electron-packager": "^8.3.0",
     "gulp": "^3.9.1",
     "gulp-sass": "^2.3.2"
   }

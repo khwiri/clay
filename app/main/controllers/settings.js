@@ -8,16 +8,20 @@ function puttyBrowse(win, event, data) {
 };
 
 function save(event, data) {
-    settings.save(data);
+    let settingsData = settings.get();
+    if(settingsData) {
+        settingsData.puttyPath = data.puttyPath;
+        settings.save(settingsData);
+    } else
+        dialog.showErrorBox('Clay', 'Unable to save settings because your application data could not be loaded.');
 };
 
 module.exports = {
     puttyBrowse: (win, event, data) => {
         puttyBrowse(win, event, data);
     },
-    
+
     save: (event, data) => {
         save(event, data);
     }
 };
-    

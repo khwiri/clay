@@ -36,6 +36,9 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
+# build package
+dist
+
 # Python build directories
 src/porcelain/build
 src/porcelain/dist

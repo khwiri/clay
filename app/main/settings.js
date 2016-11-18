@@ -16,7 +16,7 @@ module.exports = {
             templates: [
                 {id: 1, name: 'Dev', background: '#222'},
                 {id: 2, name: 'Prod', background: '#b10000'},
-                {id: 3, name: 'QA', background: '#31bc34'},
+                {id: 3, name: 'QA', background: '#31bc34'}
             ]
         });
     },

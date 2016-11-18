@@ -3,7 +3,7 @@ const {app, BrowserWindow} = require('electron');
 let win;
 
 function createWindow() {
-    win = new BrowserWindow({width: 850, height: 600, icon: `${__dirname}/../img/app.ico`});
+    win = new BrowserWindow({width: 850, height: 600}); //, icon: `${__dirname}/../img/app.ico`});
     // win.setMenu(null);
     win.loadURL(`file://${__dirname}/../views/index.html`);
     //win.webContents.openDevTools();

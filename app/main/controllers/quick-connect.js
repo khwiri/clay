@@ -1,17 +1,18 @@
 const {app, BrowserWindow, ipcMain, dialog} = require('electron');
-// const {execFile} = require('child_process');
 const settings = require('../settings');
 const utils = require('../utils');
 
 function saveConnection(event, data) {
     let settingsData = settings.get();
     if(settingsData) {
+        data.port = data.port ? data.port : '22';
+
         if(data.id) {
             settingsData.connections.forEach((connection, i) => {
                 if(connection.id == data.id) {
                     connection.name = data.name;
                     connection.host = data.host;
-                    connection.port = data.port ? data.port : '22';
+                    connection.port = data.port;
                     connection.template = data.template;
                 }
             });

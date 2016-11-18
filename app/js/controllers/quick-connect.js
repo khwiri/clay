@@ -78,7 +78,6 @@ module.exports = (settings) => {
                 let newConnection = {id: id, name: name, host: host, template: template, port: port};
                 ipcRenderer.send('save-connection', newConnection);
                 ipcRenderer.once('saved-connection', (event, settings) => {
-                    // alert('Connection Saved!');
                     $(document).trigger('on-connection-saved', settings);
                     $(document).trigger('my-connections');
                 });
