@@ -30,7 +30,6 @@
 
             ipcRenderer.send('renderer-ready');
             ipcRenderer.once('startup', function(event, settings) {
-                console.log(__dirname);
                 pages.register('Quick Connect', `${__dirname}/quick-connect.html`, settings.puttyPath ? true : false);
                 pages.register('My Connections', `${__dirname}/my-connections.html`);
                 pages.register('Templates', `${__dirname}/templates.html`);

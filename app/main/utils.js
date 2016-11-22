@@ -31,7 +31,7 @@ module.exports = {
                     background_color: `${backgroundRgb.r},${backgroundRgb.g},${backgroundRgb.b}`,
                     text_color: `${textRgb.r},${textRgb.g},${textRgb.b}`
                 })).toString('base64');
-                console.log(__dirname);
+                
                 execFile(`${__dirname}/../bin/porcelain/porcelain.exe`, [overrides], (error, stdout, stderr) => {
                     if(!error) {
                         data = Object.assign({port: '22'}, data);
