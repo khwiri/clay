@@ -66,22 +66,29 @@ function bindConnection(connection, connectionTemplate, template) {
 }
 
 function bindDeleteConnection(connection, connectionTemplate, template) {
+    let darkBackground = (Color(template.background)).darken(0.5);
+    let mediumBackground = (Color(template.background)).darken(0.4).hexString();
+
     $(connectionTemplate).click(() => {
         $(connectionTemplate).toggleClass('marked');
+        if($(connectionTemplate).hasClass('marked'))
+            $(connectionTemplate).css('background-color', template.background);
+        else
+            $(connectionTemplate).css('background-color', darkBackground.hexString());
     });
 
-    let darkBackground = (Color(template.background)).darken(0.50);
     if(darkBackground.dark())
         $(connectionTemplate).addClass('dark');
 
     $(connectionTemplate).hover(() => {
-        $(connectionTemplate).addClass('marking');
+        if(!$(connectionTemplate).hasClass('marked'))
+            $(connectionTemplate).css('background-color', mediumBackground);
     }, () => {
-        $(connectionTemplate).removeClass('marking');
+        if(!$(connectionTemplate).hasClass('marked'))
+            $(connectionTemplate).css('background-color', darkBackground.hexString());
     });
 
     $(connectionTemplate).css('background-color', darkBackground.hexString());
-
     $('.tools', connectionTemplate).hide();
 }
 
