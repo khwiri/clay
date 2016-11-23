@@ -2,32 +2,28 @@ const {ipcRenderer} = require('electron');
 const $ = require('jQuery');
 const Dialog = require('../dialog');
 
-module.exports = (settings) => {
-    let currentSettings = settings;
+let page;
 
-    $(document).on('on-connection-saved', (event, settings) => {
-        currentSettings = settings;
-    });
+function setInitialPage(settings) {
+    $('.id', page).val('');
+    $('.name', page).val('');
+    $('.template', page).val('');
+    $('.host', page).val('');
+    $('.port', page).val('');
+    setConnectButtons(settings);
+}
 
-    $('.quick-connect-page').on('clayOnPageLoad', (event, data) => {
-        let port = data.port;
-        $('.quick-connect-page .id').val(data.id);
-        $('.quick-connect-page .name').val(data.name);
-        $('.quick-connect-page .template').val(data.template);
-        $('.quick-connect-page .host').val(data.host);
-        $('.quick-connect-page .port').val(port && port != '22' ? port : '');
-    });
-
-    $('.connect').click(() => {
+function bindButtons(settings) {
+    $('.footer .connect', page).click(() => {
         let params = {
-            host: $('.quick-connect-page .host').val(),
+            host: $('.host', page).val(),
         };
 
-        let port = $('.port').val();
+        let port = $('.port', page).val();
         if(port)
             params.port = port;
 
-        let ppk = $('.private-key').val();
+        let ppk = $('.private-key', page).val();
         if(ppk)
             params.ppk = ppk;
 
@@ -35,20 +31,28 @@ module.exports = (settings) => {
             ipcRenderer.send('connect', params);
     });
 
-    $('.quick-connect-page .save').click(() => {
-        if(!$('.quick-connect-page .host').val())
+    $('.footer .cancel', page).click(() => {
+        $(document).trigger('my-connections');
+        $(document).trigger('on-quick-connect-reset');
+    });
+
+    if(!$('.footer .connect', page).length)
+        $('.submit-row > *:first-child', page).text(`Editing ${$('.name', page).val()}`);
+
+    $('.footer .save', page).click(() => {
+        if(!$('.host', page).val())
             return;
 
         let dialog = new Dialog();
-        dialog.show($('.save-connection').clone(), {
+        dialog.show($('.save-connection', page).clone(), {
             visible: (dialog) => {
-                $('.id', dialog).val($('.quick-connect-page .id').val());
-                $('.name', dialog).val($('.quick-connect-page .name').val());
-                $('.host', dialog).val($('.quick-connect-page .host').val());
-                $('.port', dialog).val($('.quick-connect-page .port').val());
+                $('.id', dialog).val($('.id', page).val());
+                $('.name', dialog).val($('.name', page).val());
+                $('.host', dialog).val($('.host', page).val());
+                $('.port', dialog).val($('.port', page).val());
 
-                let currentTemplate = $('.quick-connect-page .template').val();
-                $(currentSettings.templates).each((index, templateDefinition) => {
+                let currentTemplate = $('.template', page).val();
+                $(settings.templates).each((index, templateDefinition) => {
                     let template = $('.fresh-template .template').clone();
                     $(template).data('id', templateDefinition.id);
                     $(template).text(templateDefinition.name);
@@ -59,6 +63,7 @@ module.exports = (settings) => {
                         $(template).addClass('selected');
 
                     $(template).click(() => {
+                        console.log('template click');
                         $('.templates .template', dialog).removeClass('selected');
                         $(template).addClass('selected');
                     });
@@ -78,20 +83,60 @@ module.exports = (settings) => {
                 let newConnection = {id: id, name: name, host: host, template: template, port: port};
                 ipcRenderer.send('save-connection', newConnection);
                 ipcRenderer.once('saved-connection', (event, settings) => {
-                    // alert('Connection Saved!');
                     $(document).trigger('on-connection-saved', settings);
                     $(document).trigger('my-connections');
+                    $(document).trigger('on-quick-connect-reset');
                 });
 
                 return true;
             }
         });
     });
+}
 
-    $('.private-key-browse').click(() => {
+function setConnectButtons(settings) {
+    let buttons = $('.submit-row-buttons .connect-buttons', page).clone();
+    $('.submit-row', page).removeClass('status');
+    $('.submit-row', page).empty().append(buttons.children());
+    bindButtons(settings);
+}
+
+function setSaveButtons(settings) {
+    let buttons = $('.submit-row-buttons .save-buttons', page).clone();
+    $('.submit-row', page).addClass('status');
+    $('.submit-row', page).empty().append($('<div />'));
+    $('.submit-row', page).append(buttons);
+    bindButtons(settings);
+}
+
+module.exports = (settings) => {
+    let currentSettings = settings;
+    page = $('.quick-connect-page');
+
+    $(document).on('on-connection-saved', (event, settings) => {
+        currentSettings = settings;
+    });
+
+    $(document).on('on-quick-connect-reset', (event) => {
+        setInitialPage(currentSettings);
+    });
+
+    $(page).on('clayOnPageLoad', (event, data) => {
+        let port = data.port;
+        $('.id', page).val(data.id);
+        $('.name', page).val(data.name);
+        $('.template', page).val(data.template);
+        $('.host', page).val(data.host);
+        $('.port', page).val(port && port != '22' ? port : '');
+        setSaveButtons(currentSettings);
+    });
+
+    $('.private-key-browse', page).click(() => {
         ipcRenderer.send('private-key-browse');
         ipcRenderer.once('private-key-path', function(event, data) {
             $('.private-key').val(data.path);
         });
     });
+
+    setConnectButtons(currentSettings);
 };
