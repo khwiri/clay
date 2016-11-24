@@ -25,22 +25,29 @@ function bindTemplate(template, templateTemplate) {
 }
 
 function bindDeleteTemplate(template, templateTemplate) {
+    let darkBackground = (Color(template.background)).darken(0.7);
+    let mediumBackground = (Color(template.background)).darken(0.4).hexString();
+
     $(templateTemplate).click(() => {
         $(templateTemplate).toggleClass('marked');
+        if($(templateTemplate).hasClass('marked'))
+            $(templateTemplate).css('background-color', template.background);
+        else
+            $(templateTemplate).css('background-color', darkBackground.hexString());
     });
 
-    let darkBackground = (Color(template.background)).darken(0.50);
     if(darkBackground.dark())
         $(templateTemplate).addClass('dark');
 
     $(templateTemplate).hover(() => {
-        $(templateTemplate).addClass('marking');
+        if(!$(templateTemplate).hasClass('marked'))
+            $(templateTemplate).css('background-color', mediumBackground);
     }, () => {
-        $(templateTemplate).removeClass('marking');
+        if(!$(templateTemplate).hasClass('marked'))
+            $(templateTemplate).css('background-color', darkBackground.hexString());
     });
 
     $(templateTemplate).css('background-color', darkBackground.hexString());
-
 }
 
 function renderTemplate(template, action) {

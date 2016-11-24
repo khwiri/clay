@@ -66,7 +66,7 @@ function bindConnection(connection, connectionTemplate, template) {
 }
 
 function bindDeleteConnection(connection, connectionTemplate, template) {
-    let darkBackground = (Color(template.background)).darken(0.5);
+    let darkBackground = (Color(template.background)).darken(0.7);
     let mediumBackground = (Color(template.background)).darken(0.4).hexString();
 
     $(connectionTemplate).click(() => {
