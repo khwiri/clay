@@ -24,18 +24,6 @@
         @at-root .templates.delete .template {
             color: $text-color;
             border: 1px solid $template-delete-border-color;
-
-            &:hover {
-                background-color: $template-delete-marked !important;
-            }
-
-            &.marked {
-                background-color: $template-delete-marked !important;
-            }
-
-            &.marking {
-                background-color: $template-delete-marked !important;
-            }
         }
 
         &.dark {

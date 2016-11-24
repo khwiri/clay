@@ -53,7 +53,7 @@ $actionbar-background: #222 !default;
 $actionbar-border-color: #555 !default;
 
 // quick connect page
-$quick-connect-save-selected: lighten($brand-success, 5%) !important;
+$quick-connect-save-border-color: #aaa !default;
 
 // templates page
 $template-delete-marked: $brand-error !default;

@@ -1,4 +1,5 @@
 const {ipcRenderer} = require('electron');
+const Color = require('color');
 const $ = require('jQuery');
 const Dialog = require('../dialog');
 
@@ -53,19 +54,37 @@ function bindButtons(settings) {
 
                 let currentTemplate = $('.template', page).val();
                 $(settings.templates).each((index, templateDefinition) => {
+                    let darkBackground = (Color(templateDefinition.background)).darken(0.7);
+                    let mediumBackground = (Color(templateDefinition.background)).darken(0.4).hexString();
                     let template = $('.fresh-template .template').clone();
                     $(template).data('id', templateDefinition.id);
+                    $(template).data('color', templateDefinition.background);
                     $(template).text(templateDefinition.name);
-                    $(template).css('background-color', templateDefinition.background);
+                    $(template).css('background-color', darkBackground.hexString());
                     $('.templates', dialog).append(template);
 
-                    if(currentTemplate == templateDefinition.id)
+                    if(currentTemplate == templateDefinition.id) {
                         $(template).addClass('selected');
+                        $(template).css('background-color', templateDefinition.background);
+                    }
+
+                    $(template).hover(() => {
+                        if(!$(template).hasClass('selected'))
+                            $(template).css('background-color', mediumBackground);
+                    }, () => {
+                        if(!$(template).hasClass('selected'))
+                            $(template).css('background-color', darkBackground.hexString());
+                    });
 
                     $(template).click(() => {
-                        console.log('template click');
+                        $('.templates .template', dialog).each((index, element) => {
+                            let background = Color($(element).data('color'));
+                            $(element).css('background-color', background.darken(0.5).hexString());
+                        });
+
                         $('.templates .template', dialog).removeClass('selected');
                         $(template).addClass('selected');
+                        $(template).css('background-color', templateDefinition.background);
                     });
                 });
             },
